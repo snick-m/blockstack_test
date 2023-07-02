@@ -1,0 +1,16 @@
+{% extends "socialmedia/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    {% if user.is_authenticated %}
+        <script>window.location.href = "/";</script>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {% crispy user_login_form %}
+    </form>
+</div>
+    
+{% endblock content %}

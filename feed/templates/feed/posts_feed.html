@@ -1,0 +1,50 @@
+<div class="d-flex flex-column align-items-center w-50">
+    {% for post in posts %}
+        {% include "feed/post.html" with post=post %}
+    {% endfor %}
+</div>
+
+{% block jsfiles %}
+
+<script type="text/javascript">
+    for (elem of document.getElementsByClassName('like')) {
+        elem.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch(e.target.href).then(response => response.json()).then(data => {
+                let post = document.getElementById(data.post_id);
+                post.querySelector('.like_count').innerHTML = data.likes + ' likes';
+                post.querySelector('.like').innerHTML = data.liked ? 'Unlike' : 'Like';
+                post.querySelector('.like').classList.remove('btn-outline-secondary', 'btn-secondary');
+                post.querySelector('.like').classList.add(data.liked ? 'btn-secondary' : 'btn-outline-secondary');
+            });
+        });
+    }
+
+    function makeComment(target) {
+        let post_id = target.dataset.url.split('/')[2];
+
+        fetch(target.dataset.url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': target.parentElement.querySelector('input[name="csrfmiddlewaretoken"]').value
+            },
+            body: new URLSearchParams({
+                csrfmiddlewaretoken: target.parentElement.querySelector('input[name="csrfmiddlewaretoken"]').value,
+                body: target.parentElement.querySelector('input[name="body"]').value
+            })
+        })
+        .then(response => response.text())
+        .then(data => {
+            let div = document.createElement('div');
+            div.innerHTML = data;
+            div = div.firstElementChild;
+            let currPost = document.getElementById(post_id);
+            currPost.parentElement.insertBefore(div, currPost);
+            currPost.remove();
+        })
+
+    }
+</script>
+
+{% endblock %}

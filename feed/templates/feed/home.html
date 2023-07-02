@@ -1,0 +1,17 @@
+{% extends "socialmedia/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="d-flex flex-column align-items-center w-100">
+    <div class="m-2">
+        <h5> Hello, {{ user.first_name }}! </h5>
+    </div>
+    <div class="m-2">
+        <a href="{% url 'create_post' %}">Create Post</a>
+    </div>
+
+    {% include 'feed/posts_feed.html' with posts=feed_posts %}
+</div>
+
+{% endblock %}

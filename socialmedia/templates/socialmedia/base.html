@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>{% block title %}Django Social Media{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+    {% comment %} Create a header with home profile and find connections button {% endcomment %}
+
+    <div id="header" class="d-flex justify-content-center bg-dark p-3">
+        <a class="btn btn-light mx-2" href="{% url 'home' %}">Home</a>
+        <a class="btn btn-light mx-2" href="{% url 'profile' %}">Profile</a>
+        <a class="btn btn-light mx-2" href="{% url 'users_list' %}">Find Connections</a>
+        <a class="btn btn-light mx-2 ms-auto" href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <div id="content" class="px-5">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block jsfiles %}
+    {% endblock %}
+</body>
+</html>

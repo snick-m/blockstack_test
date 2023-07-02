@@ -1,0 +1,23 @@
+{% extends "socialmedia/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+        
+        {% comment %} <input type="text" name="first_name" placeholder="First Name" value="{{ profile.user.first_name }}">
+        <input type="text" name="last_name" placeholder="Last Name" value="{{ profile.user.last_name }}">
+        <input type="text" name="email" placeholder="Email" value="{{ profile.user.email }}">
+
+        <input type="textbox" name="bio" placeholder="Bio" value="{{ profile.bio }}">
+        <input type="date" name="birthdate" placeholder="Birthday" value="{{ profile.birthdate }}"> {% endcomment %}
+
+        <input type="submit" value="Update">
+    </form>
+</div>
+{% endblock content %}

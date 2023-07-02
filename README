@@ -1,0 +1,36 @@
+Needed to install pymongo==3.12.3 to get Djongo to work with project.
+
+Database used:
+MongoDB Atlas. Free Tier.
+
+Used "Djongo" to connect to MongoDB Atlas. Primary reason for using Djongo was that it kept the exact same API as using Django's ORM with SQLite. This makes the database option customizable as well as easy to adapt for others working on the project.
+Unfortunately the Djongo documentation is a bit of a shortcoming. Although after the initial setup, the rest is pretty much the same as using Django's ORM with SQLite.
+
+
+Kept the default MVT structure of Django. I did not go for an external fronted solution as I wanted to mainly focus on the backend.
+
+
+The authentication is the default Django authentication which already provides a lot of security including hashed passwords, CSRF tokens, etc.
+
+As for scaling, I would prefer an SQL Database. While MongoDB offers more flexibility with the data modelling, a lot of the data is relational and would be better suited for an SQL Database. As well as the fact that SQL Databases are more mature and have a lot more support for scaling. I would also prefer to use Django's ORM with an SQL Database.
+    
+
+I've tried optimizing database queries as much as I could. However, it can still use some work.
+
+
+Remaining Feature Implementations:-
+- Tidy up users list page and connect to user profiles.
+- Add a "Friends" page.
+- Add a "Invites" page.
+- Implement image uploads.
+- Implement other social links.
+- Implement sharing posts.
+- Implement like and reply for comments.
+- Implement search.
+- Implement pagination.
+
+
+For search of posts and profiles, I will be using the full-text search features of MongoDB Atlas.
+
+Lastly the project is separated into 3 apps. feed, users, and socialmedia. This is to ensure good separation of implementations to improve customizability.
+Additionally I have broken down the Feed and Post components into separate templates for better reusability and customizability.

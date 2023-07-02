@@ -1,0 +1,33 @@
+{% extends "socialmedia/base.html" %}
+{% include "feed/post.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex align-items-center my-4">
+    <img src="{{ profile.image }}" class="me-4" />
+    <div class="d-flex flex-column ">
+        <h4>{{ profile.user.first_name }} {{ profile.user.last_name }}
+            <p class="d-inline fs-6 fw-normal text-muted">{{ profile.user.email }}</p>
+        </h4>
+        
+        <h6 class="mt-2 fw-normal">{{ profile.bio }}</h6>
+        <h6 class="fw-normal text-muted">{{ profile.birthdate }}</h6>
+    </div>
+    <div class="ms-auto">
+        {% if profile in friends %}
+            <a href="{% url 'disconnect' username=profile.user.username %}" class="btn btn-secondary rounded-3">Disconnect</a>
+        {% elif profile.user.username in sent_invites %}
+            <a href="{% url 'invite' operation='delete' username=profile.user.username %}" class="btn btn-secondary rounded-3">Cancel Invite</a>
+        {% elif profile.user.username in received_invites %}
+            <a href="{% url 'invite' operation='accept' username=profile.user.username %}" class="btn btn-secondary rounded-3">Accept Invite</a>
+        {% elif profile.user.username != user.username%}
+            <a href="{% url 'invite' operation='create' username=profile.user.username %}" class="btn btn-secondary rounded-3">Send Invite</a>
+        {% endif %}
+        {% include "socialmedia/button.html" with url='create_post' title='Create Post'%}
+        {% include "socialmedia/button.html" with url='edit_profile' title='Edit Profile'%}
+    </div>
+</div>
+
+{% include "feed/posts_feed.html" with posts=posts %}
+
+{% endblock %}

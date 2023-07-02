@@ -1,0 +1,13 @@
+{% extends 'socialmedia/base.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+    {% for profile in suggestions %}
+        <a>
+            <img src="{{ profile.image.url }}" alt="{{ profile.user }}" width="100px" height="100px">
+            <p>{{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+        </a>
+    {% endfor %}
+</div>
+{% endblock content %}
